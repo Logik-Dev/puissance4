@@ -1,7 +1,8 @@
+import java.util.Arrays;
 
 public class Board {
 	
-	private Symbol[][] grid;
+	private final Symbol[][] grid;
 	
 	public Board() {
 		this.grid = new Symbol[6][7];
@@ -11,10 +12,9 @@ public class Board {
 	/**
 	 * Remplir la grille du symbole case vide
 	 */
-	public void initializeGrid() {
-		for(int x = 0; x < grid.length; x++) {
-			for(int y = 0; y < grid[x].length; y++) 
-				grid[x][y] = Symbol.VIDE;
+	private void initializeGrid() {
+		for (Symbol[] symbols : grid) {
+			Arrays.fill(symbols, Symbol.VIDE);
 		}
 	}
 	/**
@@ -46,20 +46,17 @@ public class Board {
 	public void setSymbolAtPosition(Symbol symbol, Position pos){
 		this.grid[pos.y][pos.x] = symbol;
 	}
+
 	public Symbol[][] getGrid(){
 		return this.grid;
 	}
-	
-	public void setGrid(Symbol[][] grid) {
-		this.grid = grid;
-	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" 0 1 2 3 4 5 6\n");
-		for(int y = 0; y < grid.length; y++) {
-			for(int x = 0; x < grid[y].length; x++) {
-				sb.append("|"  + grid[y][x] );
+		for (Symbol[] symbols : grid) {
+			for (int x = 0; x < symbols.length; x++) {
+				sb.append("|").append(symbols[x]);
 			}
 			sb.append("|\n");
 		}

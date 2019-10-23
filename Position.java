@@ -1,7 +1,7 @@
 
 public class Position {
-	int x;
-	int y;
+	final int x;
+	final int y;
 	
 	public Position(int x, int y) {
 		this.x = x;
@@ -15,6 +15,9 @@ public class Position {
 	
 	@Override
 	public boolean equals(Object o) {
-		return ((Position)o).x == x && ((Position)o).y == y;
+		if(o.getClass() != this.getClass())
+			return false;
+		Position p = (Position)o;
+		return this.x == p.x && this.y == p.y;
 	}
 }

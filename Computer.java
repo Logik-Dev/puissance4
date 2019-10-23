@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Computer extends Player {
 	
-	List<Position> playablePositions;
-	List<Position> oppositePositions;
-	Position positionToPlay;
-	int maxCount = 0;
+	private List<Position> playablePositions;
+	private List<Position> oppositePositions;
+	private Position positionToPlay;
+	private int maxCount = 0;
 	
 	public Computer(String nom, Symbol symbol, Board board) {
 		super(nom, symbol, board);
@@ -17,7 +17,7 @@ public class Computer extends Player {
 	 * Définir les tableaux des positions displonibles 
 	 * et de celles jouées par le joueur
 	 */
-	public void definePositions(){
+	private void definePositions(){
 		
 		List<Position> playables = new ArrayList<>();
 		List<Position> opposites = new ArrayList<>();
@@ -52,7 +52,7 @@ public class Computer extends Player {
 	 * @param emptyPosition La position disponible à comparer
 	 * @return  Un tableau contenant une position ou il y a le plus de jetons adjacents de meme symbole et ce nombre
 	 */
-	public Object[] countDangerousAndFindBetterPositions(List<Position> positionsToSearchIn, Position emptyPosition) {
+	private Object[] countDangerousAndFindBetterPositions(List<Position> positionsToSearchIn, Position emptyPosition) {
 		int[] counts = {0,0,0,0};
 		for(int i = 1; i <= 3; i++) {
 			// Test horizontal
@@ -77,8 +77,7 @@ public class Computer extends Player {
 				counts[3] = ++counts[3];	
 		}
 		int max = Arrays.stream(counts).max().getAsInt();
-		Object[] result = {max, emptyPosition};;
-		return result;
+		return new Object[]{max, emptyPosition};
 	}
 	
 	/**
@@ -86,7 +85,7 @@ public class Computer extends Player {
 	 * laquelle jouer en fonction du nombre de jetons à côté
 	 * @param positionsToSearchIn Le tableau de positions du joueur ou de l'ordinateur
 	 */
-	public void iteratePlayablePositions(List<Position> positionsToSearchIn) {
+	private void iteratePlayablePositions(List<Position> positionsToSearchIn) {
 		int max = 0;
 		Object[][] betterPositions = new Object[playablePositions.size()][2];
 		// Obtenir les meilleurs positions
@@ -96,14 +95,14 @@ public class Computer extends Player {
 			if((int)counts[0] >= max) {
 				max = (int)counts[0];
 				betterPositions[i][0] = max;
-				betterPositions[i][1] = (Position)counts[1];
+				betterPositions[i][1] = counts[1];
 			}
 		}
 		// Définir une position aléatoire
-		List <Position> positions = new ArrayList<Position>();
-		for(int i = 0; i < betterPositions.length; i++) {
-			if(betterPositions[i][0] != null && (int)betterPositions[i][0] >= max)
-				positions.add((Position)betterPositions[i][1]);
+		List <Position> positions = new ArrayList<>();
+		for (Object[] betterPosition : betterPositions) {
+			if (betterPosition[0] != null && (int) betterPosition[0] >= max)
+				positions.add((Position) betterPosition[1]);
 		}
 		int randomIndex = (int)(Math.random() * positions.size());
 		this.positionToPlay = positions.get(randomIndex);
@@ -147,7 +146,7 @@ public class Computer extends Player {
 	/**
 	 * Jouer aléatoirement
 	 */
-	public void playRandom() {
+	private void playRandom() {
 		int randomIndex = (int)(Math.random() * this.board.getGrid()[0].length);
 		Position position = this.board.getEmptyPositionForColumn(randomIndex);
 		playAtPosition(position);
@@ -157,7 +156,7 @@ public class Computer extends Player {
 	 * Jouer sur une position définie
 	 * @param position La position à jouer
 	 */
-	public void playAtPosition(Position position) {
+	private void playAtPosition(Position position) {
 		board.setSymbolAtPosition(this.symbol, position);
 		this.positionsJetons.add(position);
 		this.nbreJetons--;

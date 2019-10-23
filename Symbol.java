@@ -4,7 +4,7 @@ public enum Symbol {
 	ROUGE("O"),
 	VIDE(".");
 	
-	private String name;
+	private final String name;
 	
 	Symbol(String name) {
 		this.name = name;

@@ -1,13 +1,12 @@
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-	String name;
+	final String name;
 	int nbreJetons;
-	List<Position> positionsJetons;
-	Symbol symbol;
-	Board board;
+	final List<Position> positionsJetons;
+	final Symbol symbol;
+	final Board board;
 	
 	public Player(String name, Symbol symbol, Board board) {
 		this.nbreJetons = 21;
@@ -35,7 +34,7 @@ public class Player {
 	 * @return True si le joueur a 4 jetons consécutifs ou False sinon
 	 */
 	public boolean hasWin() {
-		int vCount = 0, hCount = 0 , dUpCount = 0, dDownCount = 0;
+		int vCount, hCount, dUpCount, dDownCount;
 		if(positionsJetons.size() >= 4) {
 			for(int i = 0; i < positionsJetons.size(); i++) {
 				Position currentJeton = positionsJetons.get(i);
