@@ -31,11 +31,11 @@ public class Board {
 	 * @param n Le numéro de la colonne
 	 * @return Une position
 	 */
-	public Position getEmptyPositionForColumn(int n) {
+	public Position getEmptyPositionForColumn(int x) {
 		int y = grid.length - 1;
-		while(grid[y][n] != Symbol.VIDE)
+		while(grid[y][x] != Symbol.VIDE)
 			y--;
-		return new Position(n, y);
+		return new Position(x, y);
 	}
 
 	/**
