@@ -28,7 +28,7 @@ public class Board {
 
 	/**
 	 * Obtenir la position libre dans une colonne
-	 * @param n Le numéro de la colonne
+	 * @param x Le numéro de la colonne
 	 * @return Une position
 	 */
 	public Position getEmptyPositionForColumn(int x) {
@@ -45,6 +45,7 @@ public class Board {
 	 */
 	public void setSymbolAtPosition(Symbol symbol, Position pos){
 		this.grid[pos.y][pos.x] = symbol;
+
 	}
 
 	public Symbol[][] getGrid(){
