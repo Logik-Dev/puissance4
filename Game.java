@@ -6,7 +6,7 @@ public class Game {
 	
 	private Board board;
 	private final Player[] players;
-	private final Scanner sc = new Scanner(System.in);
+	private final Scanner sc;
 	private Player playerA;
 	private Player playerB;
 	private boolean gameIsFinished = false;
@@ -55,7 +55,7 @@ public class Game {
 	
 	/**
 	 * Démarrer la partie et saisir les choix des utilisateurs
-	 * @throws InterruptedException
+	 * @throws InterruptedException Du à l'utilisation de Thread.sleep
 	 */
 	private void start() throws InterruptedException {
 
@@ -78,7 +78,7 @@ public class Game {
 	/**
 	 * Jouer le tour d'un joueur
 	 * @param j Le joueur qui doit jouer
-	 * @throws InterruptedException
+	 * @throws InterruptedException Du à l'utilisation de Thread.sleep
 	 */
 	private void jouerTourSolo(Player j) throws InterruptedException{
 
@@ -123,7 +123,7 @@ public class Game {
 	}
 	/**
 	 * Déroulement de la partie
-	 * @throws InterruptedException
+	 * @throws InterruptedException Du à l'utilisation de Thread.sleep
 	 */
 	private void jouerManche() throws InterruptedException{
 
@@ -169,7 +169,7 @@ public class Game {
 	}
 	
 	public Game() {
-
+		sc = new Scanner(System.in);
 		board = new Board();
 		players = new Player[2];
 	}
