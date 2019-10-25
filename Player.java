@@ -2,15 +2,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
+
 	final String name;
 	int nbreJetons;
-	final List<Position> positionsJetons;
+	final List<Position> playedPositions;
 	final Symbol symbol;
 	final Board board;
 	
 	public Player(String name, Symbol symbol, Board board) {
 		this.nbreJetons = 21;
-		this.positionsJetons = new ArrayList<>();
+		this.playedPositions = new ArrayList<>();
 		this.name = name;
 		this.symbol = symbol;
 		this.board = board;
@@ -22,37 +23,50 @@ public class Player {
 	 * @param column La colonne ou déposer le jeton
 	 */
 	public void playAtColumn(int column){
+
 		Position position = board.getEmptyPositionForColumn(column);
-		this.board.setSymbolAtPosition(this.symbol, position);
-		positionsJetons.add(position);
+
+		board.setSymbolAtPosition(symbol, position);
+		playedPositions.add(position);
 		nbreJetons--;
 	}
 	
 	/**
 	 * Parcourir les positions jouées et les compter selon leur
-	 * position pour savoir si le joueur a gagné
+	 * pour savoir si le joueur a gagné
 	 * @return True si le joueur a 4 jetons consécutifs ou False sinon
 	 */
 	public boolean hasWin() {
+
 		int vCount, hCount, dUpCount, dDownCount;
-		if(positionsJetons.size() >= 4) {
-			for(int i = 0; i < positionsJetons.size(); i++) {
-				Position currentJeton = positionsJetons.get(i);
+
+		if(playedPositions.size() >= 4) {
+
+			for(int i = 0; i < playedPositions.size(); i++) {
+
+				Position currentJeton = playedPositions.get(i);
 				vCount = 0; hCount = 0; dUpCount = 0; dDownCount = 0;
+
 				for(int y = 1 ; y <= 3; y++) {
+
 					Position vToFind = new Position(currentJeton.x, currentJeton.y + y);
 					Position hToFind = new Position(currentJeton.x + y, currentJeton.y);
 					Position dUpToFind = new Position(currentJeton.x + y, currentJeton.y - y);
 					Position dDownToFind = new Position(currentJeton.x + y, currentJeton.y + y);
-					if(positionsJetons.indexOf(vToFind) >= 0)
+
+					if(playedPositions.indexOf(vToFind) >= 0)
 						vCount++;
-					if(positionsJetons.indexOf(hToFind) >= 0) 
+
+					if(playedPositions.indexOf(hToFind) >= 0)
 						hCount++;
-					if(positionsJetons.indexOf(dUpToFind) >= 0) 
+
+					if(playedPositions.indexOf(dUpToFind) >= 0)
 						dUpCount++;
-					if(positionsJetons.indexOf(dDownToFind) >= 0) 
+
+					if(playedPositions.indexOf(dDownToFind) >= 0)
 						dDownCount++;
 				}
+
 				if(vCount == 3 || hCount == 3 || dUpCount == 3 || dDownCount == 3) 
 						return true;
 			}

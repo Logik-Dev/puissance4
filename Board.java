@@ -13,18 +13,22 @@ public class Board {
 	 * Remplir la grille du symbole case vide
 	 */
 	private void initializeGrid() {
-		for (Symbol[] symbols : grid) {
+
+		for (Symbol[] symbols : grid)
 			Arrays.fill(symbols, Symbol.VIDE);
-		}
+
 	}
+
 	/**
 	 * Verifier si une colonne est pleine
-	 * @param n Le numéro de la colonne
+	 * @param x Le numéro de la colonne
 	 * @return Vrai ou Faux
 	 */
-	public boolean isColumnFull(int n) {
-		return grid[0][n] != Symbol.VIDE;
+	public boolean isColumnFull(int x) {
+
+		return grid[0][x] != Symbol.VIDE;
 	}
+
 
 	/**
 	 * Obtenir la position libre dans une colonne
@@ -32,18 +36,22 @@ public class Board {
 	 * @return Une position
 	 */
 	public Position getEmptyPositionForColumn(int x) {
+
 		int y = grid.length - 1;
+
 		while(grid[y][x] != Symbol.VIDE)
 			y--;
+
 		return new Position(x, y);
 	}
 
 	/**
-	 * Assigne un symbol à une position dans la grille
+	 * Assigner un symbol à une position dans la grille
 	 * @param symbol le symbole à placer
 	 * @param pos la position ou se trouvera le symbole
 	 */
 	public void setSymbolAtPosition(Symbol symbol, Position pos){
+
 		this.grid[pos.y][pos.x] = symbol;
 
 	}

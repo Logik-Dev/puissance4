@@ -1,5 +1,6 @@
 
 public enum Symbol {
+
 	JAUNE("X"),
 	ROUGE("O"),
 	VIDE(".");
