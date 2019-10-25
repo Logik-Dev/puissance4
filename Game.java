@@ -30,7 +30,7 @@ public class Game {
 		if(playerA.hasWin() || playerB.hasWin())
 			return true;
 
-		return playerA.nbreJetons == 0 && playerB.nbreJetons == 0;
+		return playerA.getNbreJetons() == 0 && playerB.getNbreJetons() == 0;
 	}
 	
 	/**
@@ -86,7 +86,7 @@ public class Game {
 
 		if(!gameIsFinished) {
 
-			System.out.println("Au tour de "+ j.name);
+			System.out.println("Au tour de "+ j.getName());
 			Thread.sleep(1500);
 
 			if(!(j instanceof Computer)) {
@@ -95,7 +95,7 @@ public class Game {
 
 					do {
 
-						System.out.println(j.name + " quelle colonne choisi tu (0 à 6)?");
+						System.out.println(j.getName() + " quelle colonne choisi tu (0 à 6)?");
 
 						while(!sc.hasNextInt()) {
 							System.out.println("Ce n'est pas un chiffre, merci de recommencer:");
@@ -127,11 +127,11 @@ public class Game {
 	 */
 	private void jouerManche() throws InterruptedException{
 
-		String colorA = playerA.symbol == Symbol.JAUNE ? "jaune" : "rouge";
+		String colorA = playerA.getSymbol() == Symbol.JAUNE ? "jaune" : "rouge";
 		String colorB = colorA.equals("jaune") ? "rouge" : "jaune";
 
-		System.out.println(playerA.name + " commencera avec la couleur "  + colorA + " et le symbole " + playerA.symbol);
-		System.out.println(playerB.name + " sera second avec la couleur " + colorB + " et le symbole " + playerB.symbol);
+		System.out.println(playerA.getName() + " commencera avec la couleur "  + colorA + " et le symbole " + playerA.getSymbol());
+		System.out.println(playerB.getName() + " sera second avec la couleur " + colorB + " et le symbole " + playerB.getSymbol());
 
 		Thread.sleep(1500);
 
@@ -147,7 +147,7 @@ public class Game {
 
 			String winner = " est le gagnant !";
 
-			winner = playerA.hasWin() ? playerA.name + winner : playerB.name + winner;
+			winner = playerA.hasWin() ? playerA.getName() + winner : playerB.getName() + winner;
 
 			System.out.println(winner);
 		}

@@ -24,7 +24,7 @@ public class Computer extends Player {
 		
 		List<Position> playables = new ArrayList<>();
 		List<Position> opposites = new ArrayList<>();
-		Symbol[][] grid = board.getGrid();
+		Symbol[][] grid = getBoard().getGrid();
 
 		// Parcourir la grille de jeu
 		for(int y = 0; y < grid.length; y++) {
@@ -34,7 +34,7 @@ public class Computer extends Player {
 				Position position = new Position(x, y);
 
 				// si la position n'est ni vide ni le code couleur de l'ordinateur
-				if(grid[y][x] != Symbol.VIDE && grid[y][x] != this.symbol) 
+				if(grid[y][x] != Symbol.VIDE && grid[y][x] != getSymbol())
 					opposites.add(position); // on l'ajoute aux positions adverses
 
 				// si la position est vide
@@ -142,12 +142,12 @@ public class Computer extends Player {
 		// Initialiser les tableaux de positions et variables d'instances
 		definePositions();
 
-		if(playedPositions.size() == 0 && oppositePositions.size() == 0)
+		if(getPlayedPositions().size() == 0 && oppositePositions.size() == 0)
 			playRandom();
 		
 		else {
 			// Récupérer son propre nombre de jetons alignés et la position a jouer pour gagner
-			iteratePlayablePositions(playedPositions);
+			iteratePlayablePositions(getPlayedPositions());
 			int selfCount = maxCount;
 			Position selfPosition = positionToPlay;
 
@@ -178,8 +178,8 @@ public class Computer extends Player {
 	 */
 	private void playRandom() {
 
-		int randomIndex = (int)(Math.random() * this.board.getGrid()[0].length);
-		Position position = this.board.getEmptyPositionForColumn(randomIndex);
+		int randomIndex = (int)(Math.random() * getBoard().getGrid()[0].length);
+		Position position = getBoard().getEmptyPositionForColumn(randomIndex);
 
 		playAtPosition(position);
 	}
@@ -190,9 +190,9 @@ public class Computer extends Player {
 	 */
 	private void playAtPosition(Position position) {
 
-		board.setSymbolAtPosition(this.symbol, position);
-		playedPositions.add(position);
-		this.nbreJetons--;
+		getBoard().setSymbolAtPosition(getSymbol(), position);
+		getPlayedPositions().add(position);
+		decrementNumOfCoin();
 		
 	}
 

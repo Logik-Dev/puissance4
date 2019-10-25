@@ -3,11 +3,11 @@ import java.util.List;
 
 public class Player {
 
-	protected final String name;
-	protected int nbreJetons;
-	protected final List<Position> playedPositions;
-	protected final Symbol symbol;
-	protected final Board board;
+	private final String name;
+	private int nbreJetons;
+	private final List<Position> playedPositions;
+	private final Symbol symbol;
+	private final Board board;
 	
 	public Player(String name, Symbol symbol, Board board) {
 		this.nbreJetons = 21;
@@ -75,5 +75,27 @@ public class Player {
 		
 	}
 
+	public String getName() {
+		return name;
+	}
 
+	public int getNbreJetons() {
+		return nbreJetons;
+	}
+
+	public List<Position> getPlayedPositions() {
+		return playedPositions;
+	}
+
+	public Symbol getSymbol() {
+		return symbol;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void decrementNumOfCoin(){
+		this.nbreJetons--;
+	}
 }

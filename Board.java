@@ -64,9 +64,11 @@ public class Board {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" 0 1 2 3 4 5 6\n");
 		for (Symbol[] symbols : grid) {
+
 			for (int x = 0; x < symbols.length; x++) {
 				sb.append("|").append(symbols[x]);
 			}
+
 			sb.append("|\n");
 		}
 		return sb.toString();
