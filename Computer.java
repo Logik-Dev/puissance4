@@ -10,7 +10,6 @@ public class Computer extends Player {
 	private int maxCount = 0;
 	
 	public Computer(String nom, Symbol symbol, Board board) {
-
 		super(nom, symbol, board);
 	}
 	
