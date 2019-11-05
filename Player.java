@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Player {
@@ -32,48 +33,93 @@ public class Player {
 	}
 	
 	/**
-	 * Parcourir les positions jouées et les compter selon leur
-	 * pour savoir si le joueur a gagné
+	 * Savoir si le joueur a gagné
 	 * @return True si le joueur a 4 jetons consécutifs ou False sinon
 	 */
 	public boolean hasWin() {
 
-		int vCount, hCount, dUpCount, dDownCount;
+		for(Position currentPosition: playedPositions) {
+			if(isPositionWinnable(currentPosition, playedPositions))
+				return true;
+		}
+		return false;
+	}
 
-		if(playedPositions.size() >= 4) {
+	/**
+	 * Teste si une position peut remporter la victoire
+	 * @param position La position a tester
+	 * @param positionsList La liste de positions à comparer
+	 * @return True si la position est gagnante ou False sinon
+	 */
+	protected boolean isPositionWinnable(Position position, List<Position> positionsList){
 
-			for(int i = 0; i < playedPositions.size(); i++) {
+		HashMap<String, List<List<Position>>> consecutivePositions = this.getConsecutivePositions(position, positionsList);
 
-				Position currentJeton = playedPositions.get(i);
-				vCount = 0; hCount = 0; dUpCount = 0; dDownCount = 0;
+		for(String direction: consecutivePositions.keySet()){
 
-				for(int y = 1 ; y <= 3; y++) {
-
-					Position vToFind = new Position(currentJeton.x, currentJeton.y + y);
-					Position hToFind = new Position(currentJeton.x + y, currentJeton.y);
-					Position dUpToFind = new Position(currentJeton.x + y, currentJeton.y - y);
-					Position dDownToFind = new Position(currentJeton.x + y, currentJeton.y + y);
-
-					if(playedPositions.indexOf(vToFind) >= 0)
-						vCount++;
-
-					if(playedPositions.indexOf(hToFind) >= 0)
-						hCount++;
-
-					if(playedPositions.indexOf(dUpToFind) >= 0)
-						dUpCount++;
-
-					if(playedPositions.indexOf(dDownToFind) >= 0)
-						dDownCount++;
+			for(List<Position> positions: consecutivePositions.get(direction)){
+				if(positions.size() >= 3){
+					return true;
 				}
-
-				if(vCount == 3 || hCount == 3 || dUpCount == 3 || dDownCount == 3) 
-						return true;
 			}
 		}
 		return false;
-		
 	}
+
+	/**
+	 * Parcoure une liste de position et ajoute les positions consécutives dans une liste
+	 * à celle passée en paramètre pour chaque direction
+	 * @param positionToCompare La position à analyser
+	 * @param positionsList La liste de positions où chercher les consecutives
+	 * @return Une HashMap avec pour clef la direction et pour valeur une liste de liste de positions
+	 */
+	protected HashMap<String, List<List<Position>>> getConsecutivePositions(Position positionToCompare , List<Position> positionsList) {
+
+		HashMap<String, List<List<Position>>> consecutivePositions = new HashMap<>();
+		consecutivePositions.put("horizontal", new ArrayList<>());
+		consecutivePositions.put("vertical", new ArrayList<>());
+		consecutivePositions.put("diagonalUp", new ArrayList<>());
+		consecutivePositions.put("diagonalDown", new ArrayList<>());
+
+
+				for(String direction: consecutivePositions.keySet()){
+
+					List<List<Position>> globalList = consecutivePositions.get(direction);
+					List<Position> newPositions = new ArrayList<>();
+
+						for (int i = 1; i <= 3; i++) {
+
+							Position besidePosition = null;
+
+							switch (direction) {
+								case "horizontal":
+									besidePosition = new Position(positionToCompare.x + i, positionToCompare.y);
+									break;
+
+								case "vertical":
+									besidePosition = new Position(positionToCompare.x, positionToCompare.y + i);
+									break;
+
+								case "diagonalUp":
+									besidePosition = new Position(positionToCompare.x + i, positionToCompare.y - i);
+									break;
+
+								case "diagonalDown":
+									besidePosition = new Position(positionToCompare.x + i, positionToCompare.y + i);
+									break;
+							}
+
+							if (positionsList.contains(besidePosition)) {
+								newPositions.add(besidePosition);
+							}
+						}
+						globalList.add(newPositions);
+					    consecutivePositions.put(direction, globalList);
+		}
+
+		return consecutivePositions;
+	}
+
 
 	public String getName() {
 		return name;

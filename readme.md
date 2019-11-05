@@ -48,10 +48,25 @@ Et une énumération:
 
 **_hasWin()_** renvoi True si le joueur a quatre jeton alignés ou False sinon.
 
+**_isPositionWinnable()_** renvoi True si une position peut remporter la victoire.
+
+**_getConsecutivePositions()_** renvoi une HashMap avec pour clef la direction et pour valeur une liste de listes de positions consécutives.
+
+**_decrementNumOfCoin()_** décrément le nombre de jetons du joueur.
 
 #### La classe _Computer_ hérite des attributs et méthodes de _Player_ et contient des méthodes de gestion de l'IA:
-**_playRandom()_** joue sur une position aléatoire.
 
+**_definePositions()_** initialise les tableau de positions jouables et adverses.
+
+**_getRandomPosition()_** renvoi une position aléatoire.
+
+**_playAtPosition()_** joue à la position donnée en argument.
+
+**_getPositionToPlay()_** renvoie la position à jouer la plus adaptée.
+
+**_play()_** gère la mécanique de jeu de l'IA.
+
+**_play()_** renvoi True si l'opposant a deux positions centrales consécutives ou False sinon.
 
 #### L'énumération _Symbol_ définie les symboles par couleur de chaque jeton ou un symbole vide pour les cases vide:
 
