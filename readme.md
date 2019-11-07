@@ -66,7 +66,7 @@ Et une énumération:
 
 **_play()_** gère la mécanique de jeu de l'IA.
 
-**_play()_** renvoi True si l'opposant a deux positions centrales consécutives ou False sinon.
+**_hasTwoCentralPositions()_** renvoi True si l'opposant a deux positions centrales consécutives ou False sinon.
 
 #### L'énumération _Symbol_ définie les symboles par couleur de chaque jeton ou un symbole vide pour les cases vide:
 
